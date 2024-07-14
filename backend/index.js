@@ -2,10 +2,15 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from "dotenv";
 import authRouter from './routes/auth.route.js';
+import ownerRouter from './routes/owner.route.js';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 const app = express();
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 
 
@@ -33,6 +38,8 @@ app.listen(3000, () =>{
     console.log('server is running ');
 });
 
+
+app.use('/api/owner', ownerRouter);
 app.use('/api/auth', authRouter);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
