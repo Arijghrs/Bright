@@ -51,19 +51,49 @@ const Auth = ({ showModal, onClose, openSignIn }) => {
           <p className="text-sm font-caprasimo mb-7 ml-10">Or</p>
           <form className="w-full max-w-xs ml-10 -mt-10">
             <div className="mb-4">
-              <input type="text" placeholder="Full Name" className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 mt-8 ml-8 text-xs font-montserrat" />
+              <input 
+              type="text" 
+              placeholder="Full Name" 
+              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 mt-8 ml-8 text-xs font-montserrat"
+              id='username'
+              onChange={handleChange}
+               />
             </div>
             <div className="mb-4">
-              <input type="email" placeholder="E-mail address" className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" />
+              <input 
+              type="email"
+              placeholder="E-mail address" 
+              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" 
+              id='email'
+              onChange={handleChange}
+              />
             </div>
             <div className="mb-4">
-              <input type="password" placeholder="Password" className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" />
+              <input 
+              type="password" 
+              placeholder="Password" 
+              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" 
+              id='password'
+              onChange={handleChange}
+              />
             </div>
             <div className="mb-4">
-              <input type="password" placeholder="Confirm password" className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" />
+              <input 
+              type="password" 
+              placeholder="Confirm password" 
+              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" 
+              id='password'
+              onChange={handleChange}
+              />
             </div>
             <div className="mb-4">
-              <input type="tel" placeholder="Phone number (+216)" className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" />
+              <input 
+              type="tel" 
+              placeholder="Phone number (+216)" 
+              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat"
+              id='tel' 
+              onChange={handleChange}
+              />
             </div>
             <div className="mb-4 flex items-center ml-8">
               <input type="checkbox" className="mr-2 w-6 h-4" />
