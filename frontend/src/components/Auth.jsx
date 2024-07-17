@@ -1,11 +1,36 @@
 import signup from '../assets/signup.png';
 import signin from '../assets/signin.png';
 import { useState } from 'react';
+
+
+
+
 const Auth = ({ showModal, onClose, openSignIn }) => {
   if (!showModal) {
     return null;
   }
+const [formData, setFormData] = useState({})
+const handleChange = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.id]: e.target.value,
+  });
+};
 
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const res = await fetch('/api/auth/signup', 
+    {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    console.log(formData);
+};
+console.log(formData);
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="fixed inset-0 bg-black opacity-50"></div>
@@ -19,12 +44,12 @@ const Auth = ({ showModal, onClose, openSignIn }) => {
             Login with your account and <br /> access your courses, mentors <br /> and more!
           </p>
           <button
-          className="relative w-48 h-8 py-1 px-3 border mt-2 ml-10 border-black text-black font-semibold bg-white flex items-center justify-center"
-           onClick={openSignIn}
+            className="relative w-48 h-8 py-1 px-3 border mt-2 ml-10 border-black text-black font-semibold bg-white flex items-center justify-center"
+            onClick={openSignIn}
           >
             <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-yellow z-0"></span>
             <span className="absolute inset-0 border border-black bg-white z-10"></span>
-             <span className="relative z-20 font-caprasimo text-xl font-normal">Sign In</span>
+            <span className="relative z-20 font-caprasimo text-xl font-normal">Sign In</span>
           </button>
         </div>
 
@@ -49,49 +74,50 @@ const Auth = ({ showModal, onClose, openSignIn }) => {
             </button>
           </div>
           <p className="text-sm font-caprasimo mb-7 ml-10">Or</p>
-          <form className="w-full max-w-xs ml-10 -mt-10">
+          <form onSubmit={handleSubmit} className="w-full max-w-xs ml-10 -mt-10">
             <div className="mb-4">
-              <input 
-              type="text" 
-              placeholder="Full Name" 
-              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 mt-8 ml-8 text-xs font-montserrat"
-              id='username'
-              onChange={handleChange}
-               />
-            </div>
-            <div className="mb-4">
-              <input 
-              type="email"
-              placeholder="E-mail address" 
-              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" 
-              id='email'
-              onChange={handleChange}
+              <input
+                type="text"
+                placeholder="Full Name"
+                className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 mt-8 ml-8 text-xs font-montserrat"
+                id='username'
+                onChange={handleChange}
               />
             </div>
             <div className="mb-4">
-              <input 
-              type="password" 
-              placeholder="Password" 
-              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" 
-              id='password'
-              onChange={handleChange}
+              <input
+                type="email"
+                placeholder="E-mail address"
+                className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat"
+                id='email'
+                onChange={handleChange}
               />
             </div>
             <div className="mb-4">
-              <input 
-              type="password" 
-              placeholder="Confirm password" 
-              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat" 
-              id='password'
-              onChange={handleChange}
+              <input
+                type="password"
+                placeholder="Password"
+                className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat"
+                id='password'
+                onChange={handleChange}
               />
             </div>
             <div className="mb-4">
-              <input 
-              type="tel" 
-              placeholder="Phone number (+216)" 
-              className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat"
-              id='tel' 
+              <input
+                type="password"
+                placeholder="Confirm password"
+                className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat"
+                id='password'
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="tel"
+                placeholder="Phone number (+216)"
+                className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat"
+                id='tel'
+                onChange={handleChange}
               />
             </div>
             <div className="mb-4 flex items-center ml-8">
@@ -101,13 +127,14 @@ const Auth = ({ showModal, onClose, openSignIn }) => {
               </p>
             </div>
             <button
-  className="relative w-48 h-8 py-1 px-3 border mt-2 ml-8 border-black text-black font-semibold bg-white flex items-center justify-center"
-  onClick={onClose}
->
-  <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
-  <span className="absolute inset-0 border border-black bg-white z-10"></span>
-  <span className="relative z-20 font-caprasimo text-xl font-normal">Sign Up</span>
-</button>
+              
+              className="relative w-48 h-8 py-1 px-3 border mt-2 ml-8 border-black text-black font-semibold bg-white flex items-center justify-center"
+              
+            >
+              <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
+              <span className="absolute inset-0 border border-black bg-white z-10"></span>
+              <span className="relative z-20 font-caprasimo text-xl font-normal">Sign Up</span>
+            </button>
 
           </form>
           <button onClick={onClose} className="absolute top-0 right-0 mt-2 mr-2 text-black  ">X</button>
@@ -135,13 +162,13 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
             Sign up with your account and <br /> access your courses, mentors <br /> and more!
           </p>
           <button
-  className="relative w-48 h-8 py-1 px-3 border mt-2 ml-10 border-black text-black font-semibold bg-white flex items-center justify-center"
-  onClick={openSignUp}
->
-  <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
-  <span className="absolute inset-0 border border-black bg-white z-10"></span>
-  <span className="relative z-20 font-caprasimo text-xl font-normal">Sign Up</span>
-</button>
+            className="relative w-48 h-8 py-1 px-3 border mt-2 ml-10 border-black text-black font-semibold bg-white flex items-center justify-center"
+            onClick={openSignUp}
+          >
+            <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
+            <span className="absolute inset-0 border border-black bg-white z-10"></span>
+            <span className="relative z-20 font-caprasimo text-xl font-normal">Sign Up</span>
+          </button>
 
         </div>
 
@@ -156,16 +183,16 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
               <input type="password" placeholder="Password" className="border p-2 border-gray-400 shadow-shdInset h-10 w-48 ml-8 text-xs font-montserrat" />
             </div>
             <div>
-            <p className="text-darkblue font-montserrat text-xs -mt-3 ml-36">Forgot password?</p>
+              <p className="text-darkblue font-montserrat text-xs -mt-3 ml-36">Forgot password?</p>
             </div>
             <button
-  className="relative w-48 h-8 py-2 px-3 border mt-8 ml-8 border-black text-black font-semibold bg-white flex items-center justify-center"
-  onClick={onClose}
->
-  <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-yellow z-0"></span>
-  <span className="absolute inset-0 border border-black bg-white z-10"></span>
-  <span className="relative z-20 font-caprasimo text-2xl font-normal">Sign In</span>
-</button>
+              className="relative w-48 h-8 py-2 px-3 border mt-8 ml-8 border-black text-black font-semibold bg-white flex items-center justify-center"
+              onClick={onClose}
+            >
+              <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-yellow z-0"></span>
+              <span className="absolute inset-0 border border-black bg-white z-10"></span>
+              <span className="relative z-20 font-caprasimo text-2xl font-normal">Sign In</span>
+            </button>
 
           </form>
           <p className="text-sm font-caprasimo mt-4 ml-2">Or use</p>
@@ -192,7 +219,7 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
   );
 };
 
-const App = ({ buttonText, buttonAction,buttonSize }) => {
+const Popup = ({ buttonText, buttonAction, buttonSize }) => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
 
@@ -215,7 +242,7 @@ const App = ({ buttonText, buttonAction,buttonSize }) => {
   };
 
   return (
-    <div className="App">
+    <div className="Popup">
       {/* Bouton dynamique */}
       <button onClick={() => openModal(buttonAction)} className="relative h-10 w-${buttonSize} py-1 px-3 border mt-2 ml-28 border-black text-black font-semibold bg-white cursor-pointer hover:transform hover:translate-x-[-2px] hover:translate-y-[2px]">
         <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
@@ -223,11 +250,11 @@ const App = ({ buttonText, buttonAction,buttonSize }) => {
         <span className="relative z-20 font-caprasimo text-[26px] font-normal">{buttonText}</span>
       </button>
 
-  
+
       <Auth showModal={showSignUp} onClose={() => closeModal('signUp')} openSignIn={() => openModal('signIn')} />
       <SignIn showModal={showSignIn} onClose={() => closeModal('signIn')} openSignUp={() => openModal('signUp')} />
     </div>
   );
 };
 
-export default App;
+export default Popup;

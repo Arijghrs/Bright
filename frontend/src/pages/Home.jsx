@@ -2,7 +2,7 @@ import CursorImage from '../assets/Cursor.png';
 import girl from '../assets/girl.gif';
 import newImage from '../assets/Group.svg';
 import rectangle from '../assets/Rectangle 10.png';
-import App from '../components/Auth';
+import Popup from '../components/Auth';
 
 
 export default function Home() {
@@ -37,7 +37,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-col items-start space-y-4">
-      <App buttonText={buttonText} buttonAction={buttonAction}  buttonSize={buttonSize} />
+      <Popup buttonText={buttonText} buttonAction={buttonAction}  buttonSize={buttonSize} />
             <div className="flex flex-col items-start mt-2">
               <img src={CursorImage} alt="cursor" className="w-13 ml-16" />
               <button className="bg-[#A19EF7] text-white font-montserrat px-6 py-1 rounded-none mt-[-50px] ml-[121px]">
