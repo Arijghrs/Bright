@@ -1,6 +1,7 @@
 import signup from '../assets/signup.png';
 import signin from '../assets/signin.png';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -9,26 +10,42 @@ const Auth = ({ showModal, onClose, openSignIn }) => {
   if (!showModal) {
     return null;
   }
-const [formData, setFormData] = useState({})
-const handleChange = (e) => {
-  setFormData({
-    ...formData,
-    [e.target.id]: e.target.value,
-  });
-};
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const res = await fetch('/api/auth/signup', 
-    {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(formData),
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
     });
-    const data = await res.json();
-    console.log(formData);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      /*navigate('/sign-in');*/
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+    
 };
 console.log(formData);
   return (
@@ -127,16 +144,16 @@ console.log(formData);
               </p>
             </div>
             <button
-              
+              disabled = {loading}
               className="relative w-48 h-8 py-1 px-3 border mt-2 ml-8 border-black text-black font-semibold bg-white flex items-center justify-center"
-              
-            >
+              >
               <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
               <span className="absolute inset-0 border border-black bg-white z-10"></span>
-              <span className="relative z-20 font-caprasimo text-xl font-normal">Sign Up</span>
+              <span className="relative z-20 font-caprasimo text-xl font-normal"> {loading ? 'Loading...' : 'sign up'}</span>
             </button>
 
           </form>
+          {error && <p className='text-red  mt-5'>{error}</p>}
           <button onClick={onClose} className="absolute top-0 right-0 mt-2 mr-2 text-black  ">X</button>
         </div>
       </div>
