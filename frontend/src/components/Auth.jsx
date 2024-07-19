@@ -166,6 +166,49 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
     return null;
   }
 
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await fetch('/api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        credentials: 'include',
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      /*navigate('/');*/
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+    
+};
+console.log(formData);
+
+
+
+
   return (
     <div className="fixed inset-0 flex items-center  justify-center z-50">
       <div className="fixed inset-0 bg-black opacity-50"></div>
@@ -192,23 +235,36 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
         {/* Right Side */}
         <div className="w-1/2 flex flex-col justify-center items-center p-4 bg-white">
           <h2 className="text-5xl font-caprasimo mb-11 mr-7">Sign In</h2>
-          <form className="w-full max-w-xs ml-4 -mt-10">
+          <form onSubmit={handleSubmit} className="w-full max-w-xs ml-4 -mt-10">
             <div className="mb-4">
-              <input type="text" placeholder="E-mail address" className="border p-2 border-gray-400 shadow-shdInset h-10 w-48 mt-8 ml-8 text-xs font-montserrat" />
+              <input 
+              
+              type="text" placeholder="E-mail address" 
+              className="border p-2 border-gray-400 shadow-shdInset h-10 w-48 mt-8 ml-8 text-xs font-montserrat"
+              id="email"
+              onChange={handleChange} 
+               />
             </div>
             <div className="mb-4">
-              <input type="password" placeholder="Password" className="border p-2 border-gray-400 shadow-shdInset h-10 w-48 ml-8 text-xs font-montserrat" />
+              <input 
+              
+              type="password" placeholder="Password" 
+              className="border p-2 border-gray-400 shadow-shdInset h-10 w-48 ml-8 text-xs font-montserrat" 
+              id="password"
+              onChange={handleChange} 
+              />
             </div>
             <div>
               <p className="text-darkblue font-montserrat text-xs -mt-3 ml-36">Forgot password?</p>
             </div>
             <button
               className="relative w-48 h-8 py-2 px-3 border mt-8 ml-8 border-black text-black font-semibold bg-white flex items-center justify-center"
-              onClick={onClose}
+              /*onClick={onClose}*/
+              disabled={loading}
             >
               <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-yellow z-0"></span>
               <span className="absolute inset-0 border border-black bg-white z-10"></span>
-              <span className="relative z-20 font-caprasimo text-2xl font-normal">Sign In</span>
+              <span className="relative z-20 font-caprasimo text-2xl font-normal">{loading ? 'Loading...' : 'sign in'}</span>
             </button>
 
           </form>
@@ -229,6 +285,7 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
               </span>
             </button>
           </div>
+          {error && <p className='text-red-500 mt-5'>{error}</p>}
           <button onClick={onClose} className="absolute top-0 right-0 mt-2 mr-2 text-black text-2xl font-bold">X</button>
         </div>
       </div>

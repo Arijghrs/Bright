@@ -30,17 +30,9 @@ const connect = async () => {
     })
 
 
-
-
-
-app.listen(3000, () =>{
-    connect();
-    console.log('server is running ');
-});
-
-
 app.use('/api/owner', ownerRouter);
 app.use('/api/auth', authRouter);
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'internal server error';
@@ -49,4 +41,10 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
+});
+
+
+app.listen(3000, () =>{
+  connect();
+  console.log('server is running ');
 });
