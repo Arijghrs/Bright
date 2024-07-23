@@ -2,6 +2,7 @@ import signup from '../assets/signup.png';
 import signin from '../assets/signin.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import OAuth from './OAuth.jsx';
 
 
 
@@ -202,7 +203,7 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
       setLoading(false);
       setError(error.message);
     }
-    
+   
 };
 console.log(formData);
 
@@ -270,13 +271,7 @@ console.log(formData);
           </form>
           <p className="text-sm font-caprasimo mt-4 ml-2">Or use</p>
           <div className="flex space-x-4 mb-4">
-            <button className="relative w-32 h-8 py-1 px-3 border mt-2 ml-2 border-black text-black font-semibold bg-white">
-              <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-yellow z-0"></span>
-              <span className="absolute inset-0 border border-black bg-white z-10"></span>
-              <span className="relative z-20 font-inter text-sm flex items-center justify-center">
-                <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google" className="mr-2 w-5" />Gmail
-              </span>
-            </button>
+            <OAuth/>
             <button className="relative w-28 h-8 py-1 px-3 border mt-2 mr-2 border-black text-black font-semibold bg-white">
               <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-yellow z-0"></span>
               <span className="absolute inset-0 border border-black bg-white z-10"></span>
