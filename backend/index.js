@@ -5,6 +5,7 @@ import authRouter from './routes/auth.route.js';
 import ownerRouter from './routes/owner.route.js';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import { createOwner } from './controllers/owner.controller.js';
 
 dotenv.config();
 const app = express();
@@ -47,4 +48,5 @@ app.use((err, req, res, next) => {
 app.listen(3000, () =>{
   connect();
   console.log('server is running ');
+  createOwner();
 });
