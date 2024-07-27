@@ -3,6 +3,7 @@ import signin from '../assets/signin.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OAuth from './OAuth.jsx';
+import FAuth from './FAuth.jsx';
 
 
 
@@ -272,13 +273,7 @@ console.log(formData);
           <p className="text-sm font-caprasimo mt-4 ml-2">Or use</p>
           <div className="flex space-x-4 mb-4">
             <OAuth/>
-            <button className="relative w-28 h-8 py-1 px-3 border mt-2 mr-2 border-black text-black font-semibold bg-white">
-              <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-yellow z-0"></span>
-              <span className="absolute inset-0 border border-black bg-white z-10"></span>
-              <span className="relative z-20 font-inter text-sm flex items-center justify-center">
-                <img src="https://img.icons8.com/color/16/000000/facebook.png" alt="Facebook" className="mr-2 w-5" />Facebook
-              </span>
-            </button>
+            <FAuth/>
           </div>
           {error && <p className='text-red-500 mt-5'>{error}</p>}
           <button onClick={onClose} className="absolute top-0 right-0 mt-2 mr-2 text-black text-2xl font-bold">X</button>
