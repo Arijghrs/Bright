@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OAuth from './OAuth.jsx';
 import FAuth from './FAuth.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSlice.js';
 
 
 
@@ -169,48 +171,39 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
   }
 
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const  {loading,error } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-        credentials: 'include',
       });
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
+        dispatch(signInFailure(data.message));
         return;
       }
-      setLoading(false);
-      setError(null);
-      /*navigate('/');*/
+      dispatch(signInSuccess(data));
+      navigate('/');
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(signInFailure(error.message));
     }
-   
-};
-console.log(formData);
-
-
-
-
+  };
   return (
     <div className="fixed inset-0 flex items-center  justify-center z-50">
       <div className="fixed inset-0 bg-black opacity-50"></div>
