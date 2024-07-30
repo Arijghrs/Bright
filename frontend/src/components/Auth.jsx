@@ -1,6 +1,7 @@
 import signup from '../assets/signup.png';
 import signin from '../assets/signin.png';
 import { useState } from 'react';
+// eslint-disable-next-line react/prop-types
 const Auth = ({ showModal, onClose, openSignIn }) => {
   if (!showModal) {
     return null;
