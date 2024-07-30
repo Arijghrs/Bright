@@ -5,8 +5,10 @@ import "slick-carousel/slick/slick-theme.css";
 import profile from '../assets/profile.png';
 import certif from '../assets/certification.jpeg';
 import course1 from '../assets/course1.png';
+import Rating from '../components/Rating';
 
 const Profile = () => {
+  console.log('Profile component rendered');
   const [activeSlide, setActiveSlide] = useState(0);
 
   const profiles = [
@@ -51,6 +53,27 @@ const Profile = () => {
       image: course1,
       progress: 50
     }
+  ];
+
+  const cards = [
+    {
+      id: 1,
+      title: 'Leadership, Team and Project Management',
+      subtitle: 'John Blake Doe',
+      description: 'Learn about leadership, team dynamics, and project management essentials with John Blake Doe.',
+      image: course1,
+      rate: 4,
+      price: '80.000',
+    },
+    {
+      id: 2,
+      title: 'Leadership, Team and Project Management',
+      subtitle: 'John Blake Doe',
+      description: 'Learn about leadership, team dynamics, and project management essentials with John Blake Doe.',
+      image: course1,
+      rate: 4,
+      price: '80.000',
+    },
   ];
 
   const settings = {
