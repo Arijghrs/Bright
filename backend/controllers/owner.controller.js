@@ -6,8 +6,29 @@ import bcryptjs from 'bcryptjs';
 
 export const addManager = async (req, res, next) => {
   try {
-    const manager = await User.create(req.body);
+    const manager = new User({ ...req.body, role: 'manager' });
+    await manager.save();
+
     return res.status(201).json(manager);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addAssistance = async (req, res, next) => {
+  try {
+    const assistance = await User.create(req.body);
+    return res.status(201).json(assistance);
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addProfessor = async (req, res, next) => {
+  try {
+    const professor = await User.create(req.body);
+    return res.status(201).json(professor);
 
   } catch (error) {
     next(error);
