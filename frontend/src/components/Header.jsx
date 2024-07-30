@@ -1,4 +1,4 @@
-import App from './Auth';
+import Popup from './Auth'
 
 export default function Header() {
   
@@ -15,7 +15,7 @@ export default function Header() {
           <li className="text-darkBlue text-[26px]">Courses</li>
           <li className="text-darkBlue text-[26px]">Mentors</li>
           <li className="px-2 -mt-2 text-darkBlue text-[26px] rounded-none relative">
-          <App buttonText={buttonText} buttonAction={buttonAction} />
+          <Popup buttonText={buttonText} buttonAction={buttonAction} />
           </li>
          
         </ul>
