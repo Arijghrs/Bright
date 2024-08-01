@@ -3,10 +3,12 @@ import mongoose from 'mongoose';
 import dotenv from "dotenv";
 import authRouter from './routes/auth.route.js';
 import ownerRouter from './routes/owner.route.js';
+import mentorRouter from './routes/mentor.route.js';
 import userRouter from './routes/user.route.js';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import { createOwner } from './controllers/owner.controller.js';
+import { createMentor } from './controllers/mentor.controller.js';
 
 dotenv.config();
 const app = express();
@@ -35,6 +37,7 @@ const connect = async () => {
 app.use('/api/owner', ownerRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use('/api/mentor', mentorRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -51,4 +54,5 @@ app.listen(3000, () =>{
   connect();
   console.log('server is running ');
   createOwner();
+  createMentor();
 });
