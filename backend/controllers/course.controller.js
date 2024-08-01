@@ -14,4 +14,13 @@ export const addCourse = async (req, res, next) => {
       next(error);
     }
   };
+
   
+  export const getCourses = async (req, res, next) => {
+    try {
+      const course = await Course.find(); 
+      res.status(200).json(course);
+    } catch (error) {
+      next(error);
+    }
+  };
