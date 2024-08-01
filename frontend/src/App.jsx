@@ -10,6 +10,7 @@ import Coursesd from './components/Coursesd';
 import Certificates from './components/Certificates';
 import Dashboard from '../src/components/dashboard';
 import AddCourse from './pages/AddCourse';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -32,7 +33,15 @@ function App() {
           </MainLayout>
         }
       />
-      
+
+<Route
+        path="/profile"
+        element={
+          <MainLayout>
+            <Profile />
+          </MainLayout>
+        }
+      />      
 
      <Route
         path="/dashboard"
