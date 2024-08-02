@@ -9,6 +9,7 @@ import TopCathegories from '../components/TopCathegories';
 import TopFooter from '../components/TopFooter';
 import App from '../components/Auth';
 
+
 export default function Home() {
 
   const buttonText = "Sign Up Now";
@@ -66,5 +67,6 @@ export default function Home() {
       <Partners />
       <TopFooter />
     </div>
+    
   );
 }

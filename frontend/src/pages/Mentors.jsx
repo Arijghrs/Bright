@@ -1,7 +1,7 @@
 import search from "../assets/searchIcon.png"
 import clock from "../assets/clock.png"
 import flag from "../assets/flag-line.png"
-import chevron  from "../assets/che"
+import chevron  from "../assets/chevron-bas.png"
 
 
 const Mentors = () => {

@@ -5,6 +5,7 @@ import authRouter from './routes/auth.route.js';
 import ownerRouter from './routes/owner.route.js';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import { createOwner } from './controllers/owner.controller.js';
 
 dotenv.config();
 const app = express();
@@ -30,17 +31,9 @@ const connect = async () => {
     })
 
 
-
-
-
-app.listen(3000, () =>{
-    connect();
-    console.log('server is running ');
-});
-
-
 app.use('/api/owner', ownerRouter);
 app.use('/api/auth', authRouter);
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'internal server error';
@@ -49,4 +42,11 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
+});
+
+
+app.listen(3000, () =>{
+  connect();
+  console.log('server is running ');
+  createOwner();
 });
