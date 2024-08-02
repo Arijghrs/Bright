@@ -4,7 +4,7 @@ import flag from "../assets/flag-line.png";
 import chevron from "../assets/chevron-bas.png";
 import { useNavigate } from "react-router-dom";
 
-const Coursesd = () => {
+const Coursesdash = () => {
   const navigate = useNavigate();
 
   const handleAddCourse = () => {
@@ -94,7 +94,6 @@ const Coursesd = () => {
                     </button>
                   </td>
                 </tr>
-                {/* Répétez pour les autres lignes */}
               </tbody>
             </table>
           </div>
@@ -114,4 +113,4 @@ const Coursesd = () => {
   );
 };
 
-export default Coursesd;
+export default Coursesdash;

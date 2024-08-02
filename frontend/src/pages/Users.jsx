@@ -1,4 +1,4 @@
-import SinglMentor from "./SingleMentor";
+import SinglMentor from "../components/SingleMentor";
 import search from "../assets/searchIcon.png";
 import clock from "../assets/clock.png";
 

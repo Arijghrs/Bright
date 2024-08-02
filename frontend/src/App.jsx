@@ -2,14 +2,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Auth from './components/Auth';
-import Users from './components/Users';
+import Users from './pages/Users';
 import Layout from './components/Layout';
 import MainLayout from './components/MainLayout';
-import Mentors from './components/Mentors';
-import Coursesd from './components/Coursesd';
-import Certificates from './components/Certificates';
-import Dashboard from '../src/components/dashboard';
+import Mentors from './pages/Mentors';
+import Coursesd from './pages/Coursesdash';
+import Certificates from './pages/Certificates';
+import Dashboard from '../src/pages/dashboard';
 import AddCourse from './pages/AddCourse';
+import Courses from './pages/Courses';
+import CoursesA from './pages/CoursesA';
 
 function App() {
   return (
@@ -29,6 +31,22 @@ function App() {
         element={
           <MainLayout>
             <Auth />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/courses"
+        element={
+          <MainLayout>
+            <Courses />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/coursesA"
+        element={
+          <MainLayout>
+            <CoursesA/>
           </MainLayout>
         }
       />
@@ -76,8 +94,9 @@ function App() {
         }
       />
       
-      <Route path="/addcourse" element={<AddCourse/>} />
-
+      <Route 
+      path="/addcourse" 
+      element={<AddCourse/>} />
     </Routes>
   );
 }
