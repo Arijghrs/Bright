@@ -45,7 +45,7 @@ const Auth = ({ showModal, onClose, openSignIn }) => {
       }
       setLoading(false);
       setError(null);
-      /*navigate('/sign-in');*/
+      navigate('/signin');
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -200,7 +200,7 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
         return;
       }
       dispatch(signInSuccess(data));
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
