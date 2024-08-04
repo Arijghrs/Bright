@@ -1,51 +1,47 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import Auth from './components/Auth';
-import Users from './components/Users';
-import Layout from './components/Layout';
-import MainLayout from './components/MainLayout';
-import Mentors from './components/Mentors';
-import Coursesd from './components/Coursesd';
-import Certificates from './components/Certificates';
-import Dashboard from '../src/components/dashboard';
-import AddCourse from './pages/AddCourse';
-import Profile from './pages/Profile';
+import Auth from './components/Auth.jsx';
+import Users from './components/Users.jsx';
+import Layout from './components/Layout.jsx';
+import MainLayout from './components/MainLayout.jsx';
+import Mentors from './components/Mentors.jsx';
+import Coursesd from './components/Coursesd.jsx';
+import Certificates from './components/Certificates.jsx';
+import Dashboard from '../src/components/dashboard.jsx';
+import AddCourse from './pages/AddCourse.jsx';
+import Profile from './pages/Profile.jsx';
+import PrivateRoute from './components/PrivateRoute.jsx';
 
 function App() {
   return (
+
+    <BrowserRouter>
+    
     <Routes>
-     
-     <Route
-        path="/"
-        element={
+      <Route path="/" element={
           <MainLayout>
             <Home />
-
           </MainLayout>
         }
       />
-      <Route
-        path="/signup"
-        element={
+      <Route path="/signup" element={
           <MainLayout>
             <Auth />
           </MainLayout>
         }
       />
 
-<Route
-        path="/profile"
-        element={
+      <Route element={<PrivateRoute/>}>
+
+      <Route path="/profile" element={
           <MainLayout>
             <Profile />
           </MainLayout>
         }
       />      
 
-     <Route
-        path="/dashboard"
-        element={
+     <Route path="/dashboard" element={
           <Layout>
            <Dashboard/>
           </Layout>
@@ -87,16 +83,14 @@ function App() {
       
       <Route path="/addcourse" element={<AddCourse/>} />
 
+      </Route>
+
     </Routes>
-  );
-}
-
-function AppWrapper() {
-  return (
-    <BrowserRouter>
-      <App />
     </BrowserRouter>
+     
   );
 }
 
-export default AppWrapper;
+
+
+export default App;
