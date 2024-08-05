@@ -34,12 +34,12 @@ function App() {
 
       <Route element={<PrivateRoute/>}>
 
-      <Route path="/profile" element={
+       <Route path="/profile" element={
           <MainLayout>
             <Profile />
           </MainLayout>
         }
-      />      
+       />      
 
      <Route path="/dashboard" element={
           <Layout>
