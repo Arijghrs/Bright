@@ -7,7 +7,7 @@ import certif from '../assets/certification.jpeg';
 import course1 from '../assets/course1.png';
 import Rating from '../components/Rating';
 import { useSelector } from 'react-redux';
-import { updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice.js';
+import { deleteUserFailure, deleteUserSuccess, signOutUserStart, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice.js';
 import { useDispatch } from 'react-redux';
 
 const Profile = () => {
@@ -16,6 +16,7 @@ const Profile = () => {
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
+  const fileRef = useRef(null)
 
   const profiles = [
     {
@@ -177,10 +178,25 @@ const Profile = () => {
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(data.message));
+    }
+  };
+
   return (
     <div>
       <div className="font-caprasimo text-4xl leading-[55.05px] font-normal ml-12 mt-10">
-        Welcome back Moatez!
+        Welcome back {currentUser.username}
       </div>
 
       {profiles.map((profile) => (
@@ -190,7 +206,8 @@ const Profile = () => {
               <div className="relative w-52 h-52 mb-12 mt-4 items-center mx-auto">
                 <span className="absolute inset-0 w-full h-full border border-black rounded-full transform -translate-x-1 translate-y-1 bg-[#FDEE6D] z-0"></span>
                 <span className="absolute inset-0 w-full h-full border border-black rounded-full bg-white z-10"></span>
-                <img src={profile.image} alt={profile.title} className="relative z-20 h-full w-full object-cover rounded-full" />
+                <input type='file' ref={fileRef}  hidden accept='image/*' />
+                <img onClick={()=>fileRef.current.click()} src={currentUser.avatar} alt="profile" className="relative z-20 h-full w-full object-cover rounded-full" />
               </div>
               <div className="flex justify-between items-center mt-6">
                 <div className="w-full h-1 bg-gray-300 rounded-full overflow-hidden">
@@ -342,7 +359,7 @@ const Profile = () => {
       </div>
 
       <div className="flex justify-between items-center ml-12 mb-16 mt-24">
-        <button className="relative w-96 h-16 py-1 px-3 border border-black text-black font-semibold bg-white">
+        <button onClick={handleSignOut} className="relative w-96 h-16 py-1 px-3 border border-black text-black font-semibold bg-white">
           <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#CF1F30] z-0"></span>
           <span className="absolute inset-0 border border-black bg-white z-10"></span>
           <span className="relative z-20 font-caprasimo text-2xl font-normal">LOG OUT</span>
