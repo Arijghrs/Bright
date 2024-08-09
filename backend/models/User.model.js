@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'mentor', 'manager', 'assistant', 'owner'],
     default: 'user'
   }
-});
+}, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 
