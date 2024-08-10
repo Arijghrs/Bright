@@ -6,10 +6,17 @@ import profile from '../assets/profile.png';
 import certif from '../assets/certification.jpeg';
 import course1 from '../assets/course1.png';
 import Rating from '../components/Rating';
+import { useSelector } from 'react-redux';
+import { deleteUserFailure, deleteUserSuccess, signOutUserStart, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice.js';
+import { useDispatch } from 'react-redux';
 
 const Profile = () => {
   console.log('Profile component rendered');
   const [activeSlide, setActiveSlide] = useState(0);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+  const fileRef = useRef(null)
 
   const profiles = [
     {
@@ -141,10 +148,55 @@ const Profile = () => {
     };
   }, []);
 
+
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value});
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        return;
+      }
+
+      dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(data.message));
+    }
+  };
+
   return (
     <div>
       <div className="font-caprasimo text-4xl leading-[55.05px] font-normal ml-12 mt-10">
-        Welcome back Moatez!
+        Welcome back {currentUser.username}
       </div>
 
       {profiles.map((profile) => (
@@ -154,37 +206,52 @@ const Profile = () => {
               <div className="relative w-52 h-52 mb-12 mt-4 items-center mx-auto">
                 <span className="absolute inset-0 w-full h-full border border-black rounded-full transform -translate-x-1 translate-y-1 bg-[#FDEE6D] z-0"></span>
                 <span className="absolute inset-0 w-full h-full border border-black rounded-full bg-white z-10"></span>
-                <img src={profile.image} alt={profile.title} className="relative z-20 h-full w-full object-cover rounded-full" />
+                <input type='file' ref={fileRef}  hidden accept='image/*' />
+                <img onClick={()=>fileRef.current.click()} src={currentUser.avatar} alt="profile" className="relative z-20 h-full w-full object-cover rounded-full" />
               </div>
               <div className="flex justify-between items-center mt-6">
                 <div className="w-full h-1 bg-gray-300 rounded-full overflow-hidden">
                   <div className="h-1 bg-blue-500" style={{ width: '60%' }}></div>
                 </div>
               </div>
+              <form onSubmit={handleSubmit}>
               <input
                 className="border border-grey px-4 shadow-shdInset max-lg:mb-4 mb-4 h-16 font-monteserrat text-[20px] focus:outline-none placeholder-gray-500 placeholder-opacity-50 w-[90%]"
+                defaultValue={currentUser.username}
                 placeholder="Moatez Saii"
                 type="text"
+                id="username"
+                onChange={handleChange}
               />
               <input
                 className="border border-grey px-4 shadow-shdInset max-lg:mb-4 mb-4 h-16 font-monteserrat text-[20px] focus:outline-none placeholder-gray-500 placeholder-opacity-50 w-[90%]"
                 placeholder="Moatezsaii@gmail.com"
-                type="text"
+                defaultValue={currentUser.email}
+                type="email"
+                id="email"
+                onChange={handleChange}
               />
               <input
                 className="border border-grey px-4 shadow-shdInset max-lg:mb-4 mb-8 h-16 font-monteserrat text-[20px] focus:outline-none placeholder-gray-500 placeholder-opacity-50 w-[90%]"
                 placeholder="+216 55 456 521"
-                type="text"
+                defaultValue={currentUser.phone}
+                type="tel"
+                id="tel"
+                onChange={handleChange}
               />
+              
               <div className="flex justify-between items-center w-full">
-                <button className="relative w-[90%] h-14 py-1 px-auto mx-auto border border-grey text-black font-semibold bg-white">
+                <button disabled={loading} className="relative w-[90%] h-14 py-1 px-auto mx-auto border border-grey text-black font-semibold bg-white">
                   <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#FDEE6D] z-0"></span>
                   <span className="absolute inset-0 border border-black bg-white z-10"></span>
-                  <span className="relative z-20 font-caprasimo text-xl font-normal">Edit Account</span>
+                  <span className="relative z-20 font-caprasimo text-xl font-normal">{loading ? 'Loading...' : 'Update'}</span>
                 </button>
               </div>
+              </form>
             </div>
           </div>
+         
+
 
           <div className="flex flex-col items-center w-1/2 h-full pt-9">
             <div className="font-caprasimo text-4xl font-normal mt-28 mb-7">Badges</div>
@@ -292,7 +359,7 @@ const Profile = () => {
       </div>
 
       <div className="flex justify-between items-center ml-12 mb-16 mt-24">
-        <button className="relative w-96 h-16 py-1 px-3 border border-black text-black font-semibold bg-white">
+        <button onClick={handleSignOut} className="relative w-96 h-16 py-1 px-3 border border-black text-black font-semibold bg-white">
           <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#CF1F30] z-0"></span>
           <span className="absolute inset-0 border border-black bg-white z-10"></span>
           <span className="relative z-20 font-caprasimo text-2xl font-normal">LOG OUT</span>

@@ -11,7 +11,7 @@ import courseRouter from './routes/course.route.js';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import { createOwner } from './controllers/owner.controller.js';
-import { createMentor } from './controllers/mentor.controller.js';
+
 
 dotenv.config();
 const app = express();
@@ -58,5 +58,5 @@ app.listen(3000, () =>{
   connect();
   console.log('server is running ');
   createOwner();
-  createMentor();
+  
 });

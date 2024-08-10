@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
   },
   avatar:{
     type: String,
-    default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+    default: "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
 
   },
   role: {
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'mentor', 'manager', 'assistant', 'owner'],
     default: 'user'
   }
-});
+}, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 

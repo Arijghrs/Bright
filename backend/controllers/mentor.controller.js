@@ -12,7 +12,7 @@ export const getMentors = async (req, res, next) => {
   };
 
 
-  export const createMentor = async () => {
+  /*export const createMentor = async () => {
     try {
       const hashedPassword = bcryptjs.hashSync('mentor', 10); 
   
@@ -34,6 +34,20 @@ export const getMentors = async (req, res, next) => {
     } catch (error) {
       console.error('Error creating mentor:', error);
     }
-  };
+  };*/
 
- 
+  export const addMentor = async (req, res, next) => {
+    try {
+      const mentorData = req.body;
+      
+      mentorData.role = 'mentor';
+  
+      const mentor = new User({ ...mentorData });
+  
+      await mentor.save();
+  
+      return res.status(201).json(mentor);
+    } catch (error) {
+      next(error);
+    }
+  };
