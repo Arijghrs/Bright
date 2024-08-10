@@ -9,7 +9,7 @@ const Mentors = () => {
   const [mentors, setMentors] = useState([]);
 
   useEffect(() => {
-    fetch("/api/mentor/mentors") // Corrected URL
+    fetch("/api/mentor/mentors") 
       .then((response) => response.json())
       .then((data) => {
         const filteredMentors = data.filter(user => user.role === 'mentor');
