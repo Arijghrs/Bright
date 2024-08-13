@@ -1,23 +1,47 @@
 import React, { useEffect, useState } from "react";
-import SinglMentor from "./SingleMentor";
 import search from "../assets/searchIcon.png";
 import clock from "../assets/clock.png";
 import chevron from "../assets/chevron-bas.png";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [dates, setDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState('');
 
   useEffect(() => {
-    
-    fetch("/api/user/users") 
+    fetch("/api/user/users")
       .then((response) => response.json())
       .then((data) => {
-        
-        const filteredUsers = data.filter(user => user.role === 'user');
-        setUsers(filteredUsers);
+        // Filter users with role 'user'
+        const userRoleUsers = data.filter(user => user.role === 'user');
+        setUsers(userRoleUsers);
+
+        // Generate unique "mm/yy" formatted dates from creation timestamps for role 'user'
+        const creationDates = userRoleUsers.map(user => new Date(user.createdAt)); // Adjust based on your timestamp field
+        const formattedDates = creationDates
+          .map(date => date.toLocaleDateString('en-US', { year: '2-digit', month: '2-digit' }))
+          .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+        setDates(formattedDates);
       })
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
+
+  useEffect(() => {
+    if (selectedDate) {
+      const filtered = users.filter(user => {
+        const userDate = new Date(user.createdAt).toLocaleDateString('en-US', { year: '2-digit', month: '2-digit' });
+        return userDate === selectedDate;
+      });
+      setFilteredUsers(filtered);
+    } else {
+      setFilteredUsers(users);
+    }
+  }, [selectedDate, users]);
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
 
   return (
     <div className="flex bg-neutral-50 ml-5 w-[1100px]">
@@ -30,13 +54,13 @@ const Users = () => {
             <div className="flex gap-1">
               <div className="flex items-center mt-10 w-full lg:w-30 text-gray-500 bg-white border rounded-sm shadow-sm outline-none">
                 <img src={clock} className="w-4 h-4 ml-2" alt="clock" />
-                <select>
-                  <option value="" disabled selected>
+                <select onChange={handleDateChange} value={selectedDate}>
+                  <option value="" disabled>
                     Date range
                   </option>
-                  <option>01-02</option>
-                  <option>03-04</option>
-                  <option>05-06</option>
+                  {dates.map((date, index) => (
+                    <option key={index} value={date}>{date}</option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -67,7 +91,7 @@ const Users = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
+                {filteredUsers.map((user) => (
                   <tr
                     key={user.id}
                     className="grid grid-cols-12 gap-4 justify-items-start font-montserrat font-normal border-t-2 h-12 py-2 bg-neutral-50 text-gray-600"
@@ -91,7 +115,7 @@ const Users = () => {
           </div>
           <div className="w-full lg:w-[900px] h-[52px] mt-10 ml-0 lg:ml-4 bg-neutral-50 flex justify-between items-center">
             <div className="w-full lg:w-[161px] ml-4 flex">
-              <h1 className="pl-1 text-gray-600 font-semibold">{users.length}</h1>
+              <h1 className="pl-1 text-gray-600 font-semibold">{filteredUsers.length}</h1>
               <h1 className="pl-2 text-gray-600">Results</h1>
             </div>
             <div className="flex">
