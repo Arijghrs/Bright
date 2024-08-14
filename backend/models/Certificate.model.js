@@ -13,6 +13,10 @@ const certificateSchema = new mongoose.Schema({
   Mentor: {
     type: String,
     
+  },
+  phone: {
+    type: String,
+   
   }
 },
 { timestamps: true });

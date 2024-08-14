@@ -13,15 +13,15 @@ const Users = () => {
     fetch("/api/user/users")
       .then((response) => response.json())
       .then((data) => {
-        // Filter users with role 'user'
+       
         const userRoleUsers = data.filter(user => user.role === 'user');
         setUsers(userRoleUsers);
 
-        // Generate unique "mm/yy" formatted dates from creation timestamps for role 'user'
-        const creationDates = userRoleUsers.map(user => new Date(user.createdAt)); // Adjust based on your timestamp field
+        
+        const creationDates = userRoleUsers.map(user => new Date(user.createdAt)); 
         const formattedDates = creationDates
           .map(date => date.toLocaleDateString('en-US', { year: '2-digit', month: '2-digit' }))
-          .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+          .filter((value, index, self) => self.indexOf(value) === index); 
         setDates(formattedDates);
       })
       .catch((error) => console.error("Error fetching users:", error));
