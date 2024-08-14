@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import search from "../assets/searchIcon.png";
 import clock from "../assets/clock.png";
 import flag from "../assets/flag-line.png";
 import chevron from "../assets/chevron-bas.png";
 import { useNavigate } from "react-router-dom";
 
-const Coursesd = () => {
+const Coursesdash = () => {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]); // State to hold the courses data
 
@@ -34,7 +34,10 @@ const Coursesd = () => {
         <div className="flex items-center justify-between mt-8 ml-14 mr-14">
           <h1 className="font-semibold text-3xl mb-0 text-gray-700">Courses</h1>
           <button
-            className="relative w-29 h-9 py-1 px-4 border border-grey text-black bg-white"
+
+            className="relative w-40 h-10 py-1 px-2 border border-black text-black font-semibold bg-white cursor-pointer shadow-purple-400 hover:transform hover:translate-x-[-2px] hover:translate-y-[2px] hover:shadow-purple-500"
+
+           
             onClick={handleAddCourse}
           >
             <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
@@ -43,7 +46,7 @@ const Coursesd = () => {
           </button>
         </div>
 
-        <div className="bg-white w-[975px] h-[813px] ml-20 border-2s">
+        <div className="bg-white w-[940px] h-[813px] ml-12 border-2s">
           <div className="flex justify-between mb-7 mt-12 ml-4 mr-20">
             <div className="flex gap-1">
               <div className="flex items-center mt-10 w-30 text-gray-500 bg-white border rounded-sm shadow-sm outline-none">
@@ -92,25 +95,32 @@ const Coursesd = () => {
                 </tr>
               </thead>
               <tbody>
-                {courses.map((course) => (
-                  <tr
-                    key={course._id}
-                    className="grid grid-cols-12 gap-4 justify-items-start font-montserrat font-normal border-t-2 h-12 py-2 bg-neutral-50 text-gray-600"
-                  >
-                    <td className="col-span-1">
-                      <input className="ml-4" type="checkbox" />
-                    </td>
-                    <td className="col-span-3">{course.title}</td>
-                    <td className="col-span-3">{course.Category}</td>
-                    <td className="col-span-2">{course.Mentor}</td>
-                    <td className="col-span-2">{new Date(course.createdAt).toLocaleString()}</td>
-                    <td className="col-span-1">
-                      <button>
-                        <img className="w-4 h-4 mt-2" src={chevron} alt="chevron" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+
+               {courses.map((course) => (
+                <tr     key={course._id}
+                className="grid grid-cols-12 gap-4 justify-items-start font-montserrat font-normal border-t-2 h-12 py-2 bg-neutral-50 text-gray-600">
+                 
+                  <td className="col-span-1">
+                    <input className="ml-4" type="checkbox" />
+                  </td>
+                  <td className="col-span-3">{course.title}</td>
+                  <td className="col-span-3">
+                    <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                      <span aria-hidden className="absolute inset-0 bg-greey opacity-50 rounded-full"></span>
+                      <span className="relative">{course.Category}</span>
+                    </span>
+                  </td>
+                  <td className="col-span-2">{course.Mentor}</td>
+                  <td className="col-span-2">{new Date(course.createdAt).toLocaleString()}</td>
+                  <td className="col-span-1">
+                    <button>
+                      <img className="w-4 h-4 mt-2" src={chevron} alt="chevron" />
+                    </button>
+                  </td>
+                </tr>
+                                ))}
+
+
               </tbody>
             </table>
           </div>
@@ -130,4 +140,4 @@ const Coursesd = () => {
   );
 };
 
-export default Coursesd;
+export default Coursesdash;

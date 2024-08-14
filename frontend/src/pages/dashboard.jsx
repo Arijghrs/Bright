@@ -1,16 +1,16 @@
-import SquareChart from './Squarechart';
-import LineChart from './LineChart';
-import Rating from './Rating';
+import SquareChart from '../components/Squarechart';
+import LineChart from '../components/LineChart';
+import Rating from '../components/Rating';
 import Down from '../assets/down.png';
 import Up from '../assets/up.png';
 import Thomas from '../assets/Mentor.png';
 
 const Dashboard = () => {
   const courses = [
-    { name: "Introduction to web...", category: "Technologies", rating: 4, students: "115 Student" },
-    { name: "Marketing for begin...", category: "Art & science", rating: 4, students: "100 Student" },
-    { name: "Introduction to web...", category: "Technologies", rating: 2, students: "115 Student" },
-    { name: "Introduction to web...", category: "Technologies", rating: 3, students: "115 Student" }
+    { name: "Introduction to web...", category: "Technologies", rate: 4 , students: "115 Student" },
+    { name: "Marketing for begin...", category: "Art & science", rate: 4 , students: "100 Student" },
+    { name: "Introduction to web...", category: "Technologies", rate: 2 , students: "115 Student" },
+    { name: "Introduction to web...", category: "Technologies", rate: 3 , students: "115 Student" }
   ];
 
   const students = [
@@ -55,7 +55,7 @@ const Dashboard = () => {
                     <tr key={index} className="border-b-2 border-gray-300 text-[#273240]">
                       <td className="py-2">{course.name}</td>
                       <td className="py-2">{course.category}</td>
-                      <td className="py-2"><Rating rating={course.rating} /></td>
+                      <td className="py-2"><Rating rate={course.rate} /></td>
                       <td className="py-2">{course.students}</td>
                     </tr>
                   ))}

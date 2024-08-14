@@ -4,9 +4,15 @@ import AddCourseList from "../components/addCourseList";
 import AddVideoPopup from "../components/addVideoPopup";
 import AddQuizPopup from "../components/addQuizPopup"; 
 import AddCertificatePopup from "../components/addCertificatePopup";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function AddCourse() {
+  const navigate = useNavigate();
+
+  function onClose() {
+      navigate('/coursesdash');
+  }
   return (
     <div>
      <Layout>
@@ -16,11 +22,13 @@ export default function AddCourse() {
           <div className="text-3xl text-gray-700 font-montserrat font-normal mr-2">
             Add course
           </div>
-          <button className="text-base text-violet-400 mt-2 font-montserrat font-normal">
+          <button 
+          onClick={onClose}
+          className="text-base text-violet-400 mt-2 mx-2 font-montserrat font-normal">
             Cancel
           </button>
         </div>
-        <div className=" mt-4 flex gap-24 w-[850px] h-[570px] bg-white">
+        <div className=" mt-4 flex gap-24 w-[850px] h-[580px] bg-white">
           <div className="pt-6 ">
             <div className="text-black text-2xl font-montserrat font-normal ml-4">
               Add info about the new course
@@ -65,13 +73,20 @@ export default function AddCourse() {
                   className=" resize-none w-[320px] p-3 text-neutral-900 text-opacity-50 border-gray-400 shadow-shdInsetPurp text-sm font-montserrat font-normal h-44 mb-8 grid-rows-6 row-span-full outline-none border   "
                 ></textarea>
               </div>
-            </div>
+              <button 
+          className="transform transition duration-300 hover:translate-y-2 pr-2 py-2 border shadow-shdB text-[14px] h-9 ml-20 -mt-28 w-[119px] font-monteserrat text-darkgray" >
+          <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
+          <span className="absolute inset-0 border border-black bg-white z-10"></span>
+          <span className="relative z-20   text-black">Save</span>
+        </button>
+        </div>
           </div>
           <div className="mt-16">
             <DragAndDrop />
           
             <button className="flex items-center  justify-between transform border broder-1 p-3  h-11 border-gray-400  w-[320px] mt-4   text-sm  outline-none  py-2 pr-2  shadow-shdInsetPurp text-[10px]  font-monteserrat">
               <input
+              
                 className=" outline-none text-sm "
                 placeholder="Upload document"
               ></input>

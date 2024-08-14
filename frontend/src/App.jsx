@@ -1,17 +1,26 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import Auth from './components/Auth.jsx';
-import Users from './components/Users.jsx';
-import Layout from './components/Layout.jsx';
-import MainLayout from './components/MainLayout.jsx';
-import Mentors from './components/Mentors.jsx';
-import Coursesd from './components/Coursesd.jsx';
-import Certificates from './components/Certificates.jsx';
-import Dashboard from '../src/components/dashboard.jsx';
-import AddCourse from './pages/AddCourse.jsx';
-import Profile from './pages/Profile.jsx';
+
+import Auth from './components/Auth';
+import Users from './pages/Users';
+import Layout from './components/Layout';
+import MainLayout from './components/MainLayout';
+import Mentors from './pages/Mentors';
+import Coursesd from './pages/Coursesdash';
+import Certificates from './pages/Certificates';
+import Dashboard from '../src/pages/dashboard';
+import AddCourse from './pages/AddCourse';
+import Courses from './pages/Courses';
+import CoursesA from './pages/CoursesA';
+import QuizStart from './pages/QuizStart';
+import QuizFinish from './pages/QuizFinish';
+import QuizFinishFail from './pages/QuizFinishFail';
+import Checkbox from './pages/Checkbox';
+import Quiz from './pages/Quiz';
+import FillBlanksQuiz from './pages/FillBlanksQuiz';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import Profile from './pages/Profile.jsx';
 
 function App() {
   return (
@@ -31,6 +40,8 @@ function App() {
           </MainLayout>
         }
       />
+      
+
 
       <Route element={<PrivateRoute/>}>
 
@@ -80,10 +91,76 @@ function App() {
           </Layout>
         }
       />
+       <Route
+        path="/courses"
+        element={
+          <MainLayout>
+            <Courses />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/coursesA"
+        element={
+          <MainLayout>
+            <CoursesA/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/QuizStart"
+        element={
+          <MainLayout>
+           <QuizStart/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/QuizFinish"
+        element={
+          <MainLayout>
+         <QuizFinish/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/QuizFinishFail"
+        element={
+          <MainLayout>
+         <QuizFinishFail/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/Checkbox"
+        element={
+          <MainLayout>
+            <Checkbox/>
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Quiz"
+        element={
+          <MainLayout>
+            <Quiz/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/FillBlanksQuiz"
+        element={
+          <MainLayout>
+            <FillBlanksQuiz/>
+          </MainLayout>
+        }
+      />
       
+
       <Route path="/addcourse" element={<AddCourse/>} />
 
       </Route>
+
 
     </Routes>
     </BrowserRouter>

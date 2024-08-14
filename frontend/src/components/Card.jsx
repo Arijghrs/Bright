@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 
 const Card = (props) => {
   const { title, description, marginLeft } = props;
@@ -13,6 +14,12 @@ const Card = (props) => {
       </div>
     </div>
   );
+};
+
+Card.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  marginLeft: PropTypes.string,
 };
 
 export default Card;

@@ -1,7 +1,5 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import logo1 from '../assets/Logo1.png';
 import dashboardIcon from '../assets/element-4.svg';
 import usersIcon from '../assets/profile-2user.svg';
 import mentorsIcon from '../assets/teacher.svg';
@@ -9,9 +7,9 @@ import coursesIcon from '../assets/document-copy.svg';
 import discussionIcon from '../assets/note.svg';
 import scheduleIcon from '../assets/calendar.svg';
 import certificatesIcon from '../assets/document-text.svg';
-import accountIcon from '../assets/Mentor.png';
-import { deleteUserFailure, deleteUserSuccess, signOutUserStart } from '../redux/user/userSlice';
+import { deleteUserFailure, deleteUserSuccess, signOutUserStart } from '../redux/user/userSlice.js';
 import { useDispatch } from 'react-redux';
+
 
 const menuItems = [
   { href: '/dashboard', title: 'Dashboard', icon: dashboardIcon },
@@ -23,6 +21,7 @@ const menuItems = [
   { href: '/certificates', title: 'Certificates', icon: certificatesIcon },
   { href: '/profile', title: 'Account'},
 ];
+
 
 const Sidebar = () => {
   const { currentUser } = useSelector(state => state.user);
@@ -39,20 +38,21 @@ const Sidebar = () => {
       }
       dispatch(deleteUserSuccess(data));
     } catch (error) {
-      dispatch(deleteUserFailure(data.message));
+      dispatch(deleteUserFailure());
     }
   };
-
   return (
-    <aside className="bg-white w-96 h-screen p-6 shadow-md">
-      <div className="logo flex justify-center mb-6">
-        <img src={logo1} alt="logo" width={125} height={38} className="object-contain" />
-      </div>
-      <nav>
-        <ul>
-          {menuItems.map(({ href, title, icon }) => (
-            <li key={title} className="m-2">
-              <NavLink
+  <aside className=" p-1 ">
+   <div className="container mx-auto px-12 py-3 flex justify-between items-center">
+        <div className="font-caprasimo text-4xl leading-[55.05px]  font-normal">
+          Bright
+        </div>
+    </div>
+    <nav>
+      <ul>
+        {menuItems.map(({ href, title, icon }) => (
+          <li key={title} className="m-2">
+            <NavLink
                 to={href}
                 className={({ isActive }) =>
                   `hoverEffect flex items-center p-2 text-gray-500 transition duration-300 ${
@@ -71,18 +71,18 @@ const Sidebar = () => {
                 )}
                 {title}
               </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <button onClick={handleSignOut}
-      className="relative w-29 h-9 py-1 px-4 border border-grey text-black bg-white mt-6">
-        <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#CF1F30] z-0"></span>
-        <span className="absolute inset-0 border border-black bg-white z-10 flex items-center justify-center"></span>
-        <span className="relative z-20 font-caprasimo text-[24px]">Log out</span>
-      </button>
-    </aside>
-  );
-};
-
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div onClick={handleSignOut}
+    className='mx-4 mt-7'>
+          <button className="relative w-52 h-10 py-2 px-3 border border-black text-black font-semibold bg-white cursor-pointer shadow-purple-400 hover:transform hover:translate-x-[-2px] hover:translate-y-[2px] hover:shadow-purple-500">
+          <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#CF1F30] z-0"></span>
+          <span className="absolute inset-0 border border-black bg-white z-10"></span>
+          <span className="relative z-20 font-caprasimo text-lg font-normal text-black">Log out</span>
+        </button>
+        </div>    
+  </aside>
+)};
 export default Sidebar;

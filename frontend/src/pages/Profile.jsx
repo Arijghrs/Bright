@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import  { useState, useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 const Profile = () => {
   console.log('Profile component rendered');
   const [activeSlide, setActiveSlide] = useState(0);
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const fileRef = useRef(null)
@@ -172,7 +172,7 @@ const Profile = () => {
       }
 
       dispatch(updateUserSuccess(data));
-      setUpdateSuccess(true);
+      
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
@@ -189,7 +189,7 @@ const Profile = () => {
       }
       dispatch(deleteUserSuccess(data));
     } catch (error) {
-      dispatch(deleteUserFailure(data.message));
+      dispatch(deleteUserFailure());
     }
   };
 
