@@ -11,15 +11,13 @@ const Mentors = () => {
 <div>
 <div className="flex items-center justify-between mt-8 ml-14 mr-14">
   <h1 className="font-semibold text-3xl mb-0 text-gray-700">Mentors</h1>
-  <button className="relative w-29 h-9 py-1 px-4 border border-grey text-black  bg-white">
-            <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
-            <span className="absolute inset-0 border border-black bg-white z-10 flex items-center justify-center"></span>
-            <span className="relative z-20 font-normal">Add mentor</span>
-          </button>
+  <button className="relative w-40 h-10 py-1 px-2 border border-black text-black font-semibold bg-white cursor-pointer shadow-purple-400 hover:transform hover:translate-x-[-2px] hover:translate-y-[2px] hover:shadow-purple-500">
+          <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
+          <span className="absolute inset-0 border border-black bg-white z-10"></span>
+          <span className="relative z-20  font-normal">Add mentor</span>
+        </button>
 </div>
-
-
-      <div className="bg-white w-[975px] h-[813px] ml-20  border-2s">
+      <div className="bg-white w-[940px] h-[813px] ml-12 border-2s">
         <div className="flex justify-between mb-7 mt-12 ml-4 mr-20">
             <div className="flex gap-1">
           <div className="flex items-center mt-10  w-30 text-gray-500 bg-white border rounded-sm shadow-sm outline-none">

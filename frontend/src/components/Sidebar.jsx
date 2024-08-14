@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import logo1 from "../assets/Logo1.png";
 import dashboardIcon from '../assets/element-4.svg';
 import usersIcon from '../assets/profile-2user.svg';
 import mentorsIcon from '../assets/teacher.svg';
@@ -8,6 +7,7 @@ import discussionIcon from '../assets/note.svg';
 import scheduleIcon from '../assets/calendar.svg';
 import certificatesIcon from '../assets/document-text.svg';
 import accountIcon from '../assets/Mentor.png';
+
 
 
 const menuItems = [
@@ -22,9 +22,11 @@ const menuItems = [
 ];
 
 const Sidebar = () => (
-  <aside className="bg-white w-96 h-screen p-6 shadow-md">
-    <div className="logo flex justify-center mb-6">
-      <img src={logo1} alt="logo" width={125} height={38} className="object-contain" />
+  <aside className=" p-1 ">
+   <div className="container mx-auto px-12 py-3 flex justify-between items-center">
+        <div className="font-caprasimo text-4xl leading-[55.05px]  font-normal">
+          Bright
+        </div>
     </div>
     <nav>
       <ul>
@@ -38,18 +40,20 @@ const Sidebar = () => (
                 }`
               }
             >
-              <img src={icon} className="h-6 mr-4" alt={title} />
+              <img src={icon} className="h-6 mr-5" alt={title} />
               {title}
             </NavLink>
           </li>
         ))}
       </ul>
     </nav>
-    <button className="relative w-29 h-9 py-1 px-4 border border-grey text-black  bg-white">
-            <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#CF1F30] z-0"></span>
-            <span className="absolute inset-0 border border-black bg-white z-10 flex items-center justify-center"></span>
-            <span className="relative z-20 font-caprasimo  text-[24px]">Log out</span>
-          </button>
+    <div className='mx-4 mt-7'>
+          <button className="relative w-52 h-10 py-2 px-3 border border-black text-black font-semibold bg-white cursor-pointer shadow-purple-400 hover:transform hover:translate-x-[-2px] hover:translate-y-[2px] hover:shadow-purple-500">
+          <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#CF1F30] z-0"></span>
+          <span className="absolute inset-0 border border-black bg-white z-10"></span>
+          <span className="relative z-20 font-caprasimo text-lg font-normal text-black">Log out</span>
+        </button>
+        </div>    
   </aside>
 );
 

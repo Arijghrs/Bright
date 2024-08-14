@@ -16,7 +16,7 @@ const Certificates = () => {
 </div>
 
 
-      <div className="bg-white w-[975px] h-[813px] ml-20  border-2s">
+      <div className="bg-white w-[940px] h-[813px] ml-12 border-2s">
         <div className="flex justify-between mb-7 mt-12 ml-4 mr-20">
             <div className="flex gap-1">
           <div className="flex items-center mt-10  w-30 text-gray-500 bg-white border rounded-sm shadow-sm outline-none">

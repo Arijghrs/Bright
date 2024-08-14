@@ -2,8 +2,13 @@ import rectangle2 from '../assets/Rectangle2.png';
 import vector2 from '../assets/Vector2.png';
 import vector1 from '../assets/Vector1.png';
 import rectangle1 from '../assets/Rectangle1.png';
+import Button from './Button';
 
 export default function TopFooter() {
+  const buttons = [
+    { name: "Subscribe", color: "yellow", colorr: "yelloww" },
+  ];
+
   return (
     <div className="h-[447px] bg-[#F5F4FF] lg:pt-20 relative"> 
       <h2 className="text-black lg:text-3xl max-lg:text-[14px] font-caprasimo  text-center max-lg:pt-14 lg:w-[743px] max-lg:max-w-[400px] mx-auto">
@@ -16,11 +21,9 @@ export default function TopFooter() {
         placeholder="E-mail address"
         type="text"/>
        <div>
-        <button className="relative w-32 h-12 py-1 px-3 border border-black text-black font-semibold bg-white">
-          <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#FDEE6D] z-0"></span>
-          <span className="absolute inset-0 border border-black bg-white z-10"></span>
-          <span className="relative z-20 font-robotoserif font-semibold text-[20px] ">Subscribe</span>
-        </button>
+        {buttons.map((button, index) => (
+          <Button key={index} name={button.name} color={button.color} colorr={button.colorr} width="w-50" />
+        ))}
        </div>
       </div>
     

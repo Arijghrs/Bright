@@ -12,6 +12,12 @@ import Dashboard from '../src/pages/dashboard';
 import AddCourse from './pages/AddCourse';
 import Courses from './pages/Courses';
 import CoursesA from './pages/CoursesA';
+import QuizStart from './pages/QuizStart';
+import QuizFinish from './pages/QuizFinish';
+import QuizFinishFail from './pages/QuizFinishFail';
+import Checkbox from './pages/Checkbox';
+import Quiz from './pages/Quiz';
+import FillBlanksQuiz from './pages/FillBlanksQuiz';
 
 function App() {
   return (
@@ -47,6 +53,54 @@ function App() {
         element={
           <MainLayout>
             <CoursesA/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/QuizStart"
+        element={
+          <MainLayout>
+           <QuizStart/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/QuizFinish"
+        element={
+          <MainLayout>
+         <QuizFinish/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/QuizFinishFail"
+        element={
+          <MainLayout>
+         <QuizFinishFail/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/Checkbox"
+        element={
+          <MainLayout>
+            <Checkbox/>
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Quiz"
+        element={
+          <MainLayout>
+            <Quiz/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/FillBlanksQuiz"
+        element={
+          <MainLayout>
+            <FillBlanksQuiz/>
           </MainLayout>
         }
       />
