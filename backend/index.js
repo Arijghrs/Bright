@@ -6,6 +6,7 @@ import ownerRouter from './routes/owner.route.js';
 import mentorRouter from './routes/mentor.route.js';
 import userRouter from './routes/user.route.js';
 import courseRouter from './routes/course.route.js';
+import certificateRouter from './routes/certificate.route.js'
 
 
 import bodyParser from 'body-parser';
@@ -42,6 +43,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/mentor', mentorRouter);
 app.use('/api/course', courseRouter);
+app.use('/api/certificate', certificateRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
