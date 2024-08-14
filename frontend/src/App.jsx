@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
+
 import Auth from './components/Auth';
 import Users from './pages/Users';
 import Layout from './components/Layout';
@@ -18,29 +19,79 @@ import QuizFinishFail from './pages/QuizFinishFail';
 import Checkbox from './pages/Checkbox';
 import Quiz from './pages/Quiz';
 import FillBlanksQuiz from './pages/FillBlanksQuiz';
+import PrivateRoute from './components/PrivateRoute.jsx';
+import Profile from './pages/Profile.jsx';
 
 function App() {
   return (
+
+    <BrowserRouter>
+    
     <Routes>
-     
-     <Route
-        path="/"
-        element={
+      <Route path="/" element={
           <MainLayout>
             <Home />
-
           </MainLayout>
         }
       />
-      <Route
-        path="/signup"
-        element={
+      <Route path="/signup" element={
           <MainLayout>
             <Auth />
           </MainLayout>
         }
       />
+      
+
+
+      <Route element={<PrivateRoute/>}>
+
+       <Route path="/profile" element={
+          <MainLayout>
+            <Profile />
+          </MainLayout>
+        }
+       />      
+
+     <Route path="/dashboard" element={
+          <Layout>
+           <Dashboard/>
+          </Layout>
+        }
+      />
+      
       <Route
+        path="/users"
+        element={
+          <Layout>
+            <Users />
+          </Layout>
+        }
+      />
+     <Route
+        path="/mentors"
+        element={
+          <Layout>
+            <Mentors/>
+          </Layout>
+        }
+      />
+      <Route
+        path="/coursesdash"
+        element={
+          <Layout>
+            <Coursesd/>
+          </Layout>
+        }
+      />
+      <Route
+        path="/certificates"
+        element={
+          <Layout>
+            <Certificates/>
+          </Layout>
+        }
+      />
+       <Route
         path="/courses"
         element={
           <MainLayout>
@@ -106,61 +157,17 @@ function App() {
       />
       
 
-     <Route
-        path="/dashboard"
-        element={
-          <Layout>
-           <Dashboard/>
-          </Layout>
-        }
-      />
-      
-      <Route
-        path="/users"
-        element={
-          <Layout>
-            <Users />
-          </Layout>
-        }
-      />
-     <Route
-        path="/mentors"
-        element={
-          <Layout>
-            <Mentors/>
-          </Layout>
-        }
-      />
-      <Route
-        path="/coursesdash"
-        element={
-          <Layout>
-            <Coursesd/>
-          </Layout>
-        }
-      />
-      <Route
-        path="/certificates"
-        element={
-          <Layout>
-            <Certificates/>
-          </Layout>
-        }
-      />
-      
-      <Route 
-      path="/addcourse" 
-      element={<AddCourse/>} />
+      <Route path="/addcourse" element={<AddCourse/>} />
+
+      </Route>
+
+
     </Routes>
-  );
-}
-
-function AppWrapper() {
-  return (
-    <BrowserRouter>
-      <App />
     </BrowserRouter>
+     
   );
 }
 
-export default AppWrapper;
+
+
+export default App;

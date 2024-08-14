@@ -1,3 +1,4 @@
+import  { useState, useEffect } from "react";
 import search from "../assets/searchIcon.png";
 import clock from "../assets/clock.png";
 import flag from "../assets/flag-line.png";
@@ -6,6 +7,22 @@ import { useNavigate } from "react-router-dom";
 
 const Coursesdash = () => {
   const navigate = useNavigate();
+  const [courses, setCourses] = useState([]); // State to hold the courses data
+
+  useEffect(() => {
+    // Fetch the courses when the component mounts
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch("/api/course/getcourses"); // Assuming the server is running on the same domain
+        const data = await response.json();
+        setCourses(data); // Set the courses data to the state
+      } catch (error) {
+        console.error("Failed to fetch courses:", error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
 
   const handleAddCourse = () => {
     navigate('/addcourse');
@@ -17,12 +34,15 @@ const Coursesdash = () => {
         <div className="flex items-center justify-between mt-8 ml-14 mr-14">
           <h1 className="font-semibold text-3xl mb-0 text-gray-700">Courses</h1>
           <button
+
             className="relative w-40 h-10 py-1 px-2 border border-black text-black font-semibold bg-white cursor-pointer shadow-purple-400 hover:transform hover:translate-x-[-2px] hover:translate-y-[2px] hover:shadow-purple-500"
+
+           
             onClick={handleAddCourse}
           >
             <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-purp z-0"></span>
             <span className="absolute inset-0 border border-black bg-white z-10 flex items-center justify-center"></span>
-            <span className="relative z-20  font-normal">Add course</span>
+            <span className="relative z-20 font-normal">Add course</span>
           </button>
         </div>
 
@@ -75,31 +95,38 @@ const Coursesdash = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="grid grid-cols-12 gap-4 justify-items-start font-montserrat font-normal border-t-2 h-12 py-2 bg-neutral-50 text-gray-600">
+
+               {courses.map((course) => (
+                <tr     key={course._id}
+                className="grid grid-cols-12 gap-4 justify-items-start font-montserrat font-normal border-t-2 h-12 py-2 bg-neutral-50 text-gray-600">
+                 
                   <td className="col-span-1">
                     <input className="ml-4" type="checkbox" />
                   </td>
-                  <td className="col-span-3">Introduction to web...</td>
+                  <td className="col-span-3">{course.title}</td>
                   <td className="col-span-3">
                     <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                       <span aria-hidden className="absolute inset-0 bg-greey opacity-50 rounded-full"></span>
-                      <span className="relative">Technology</span>
+                      <span className="relative">{course.Category}</span>
                     </span>
                   </td>
-                  <td className="col-span-2">Moatez Saii</td>
-                  <td className="col-span-2">Mar23,2022,13:00 PM</td>
+                  <td className="col-span-2">{course.Mentor}</td>
+                  <td className="col-span-2">{new Date(course.createdAt).toLocaleString()}</td>
                   <td className="col-span-1">
                     <button>
                       <img className="w-4 h-4 mt-2" src={chevron} alt="chevron" />
                     </button>
                   </td>
                 </tr>
+                                ))}
+
+
               </tbody>
             </table>
           </div>
           <div className="w-[900px] h-[52px] mt-10 ml-4 bg-neutral-50 flex justify-between items-center">
             <div className="w-[161px] ml-4 flex">
-              <h1 className="pl-1 text-gray-600 font-montserrat font-bold">5</h1>
+              <h1 className="pl-1 text-gray-600 font-montserrat font-bold">{courses.length}</h1>
               <h1 className="pl-2 text-gray-600 font-montserrat font-normal">Results</h1>
             </div>
             <div className="">
