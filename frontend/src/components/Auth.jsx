@@ -158,7 +158,7 @@ console.log(formData);
             </button>
 
           </form>
-          {error && <p className='text-red  mt-5'>{error}</p>}
+         {/* {error && <p className='text-red  mt-5'>{error}</p>}*/} 
           <button onClick={onClose} className="absolute top-0 right-0 mt-2 mr-2 text-black  ">X</button>
         </div>
       </div>

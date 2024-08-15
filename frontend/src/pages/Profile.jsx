@@ -1,4 +1,4 @@
-import  { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,12 +9,18 @@ import Rating from '../components/Rating';
 import { useSelector } from 'react-redux';
 import { deleteUserFailure, deleteUserSuccess, signOutUserStart, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice.js';
 import { useDispatch } from 'react-redux';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
+import { app } from '../firebase';
 
 const Profile = () => {
   console.log('Profile component rendered');
   const [activeSlide, setActiveSlide] = useState(0);
   const { currentUser, loading } = useSelector((state) => state.user);
-  const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const fileRef = useRef(null)
 
@@ -119,9 +125,7 @@ const Profile = () => {
     afterChange: (index) => setActiveSlide(index),
   };
 
-  const containerRef = useRef(null);
-  const sliderRef = useRef(null);
-
+  
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!containerRef.current || !sliderRef.current) return;
@@ -151,7 +155,7 @@ const Profile = () => {
 
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value});
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   }
 
   const handleSubmit = async (e) => {
@@ -172,7 +176,7 @@ const Profile = () => {
       }
 
       dispatch(updateUserSuccess(data));
-      
+
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
@@ -193,6 +197,55 @@ const Profile = () => {
     }
   };
 
+  //firebase rules 
+  /*   allow read;
+       allow write: if
+       request.resource.size < 2 * 1024 * 1024 &&
+       request.resource.contentType.matches('image/.*')*/
+
+       const containerRef = useRef(null);
+       const sliderRef = useRef(null);
+       const [file, setFile] = useState(undefined);
+       const [filePerc, setFilePerc] = useState(0);
+       const [fileUploadError, setFileUploadError] = useState(false);
+       const [formData, setFormData] = useState({});
+       console.log(file);
+     
+
+
+  useEffect(() => {
+    if (file) {
+      handleFileUpload(file);
+    }
+  }, [file]);
+
+
+  const handleFileUpload = (file) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setFilePerc(Math.round(progress));
+      },
+      (error) => {
+        setFileUploadError(true);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, avatar: downloadURL })
+        );
+      }
+    );
+  };
+
+
+
   return (
     <div>
       <div className="font-caprasimo text-4xl leading-[55.05px] font-normal ml-12 mt-10">
@@ -206,8 +259,21 @@ const Profile = () => {
               <div className="relative w-52 h-52 mb-12 mt-4 items-center mx-auto">
                 <span className="absolute inset-0 w-full h-full border border-black rounded-full transform -translate-x-1 translate-y-1 bg-[#FDEE6D] z-0"></span>
                 <span className="absolute inset-0 w-full h-full border border-black rounded-full bg-white z-10"></span>
-                <input type='file' ref={fileRef}  hidden accept='image/*' />
-                <img onClick={()=>fileRef.current.click()} src={currentUser.avatar} alt="profile" className="relative z-20 h-full w-full object-cover rounded-full" />
+                <input onChange={(e) => setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*' />
+                <img onClick={() => fileRef.current.click()} src={currentUser.avatar} alt="profile" className="relative z-20 h-full w-full object-cover rounded-full" />
+                <p className='text-sm self-center'>
+                  {fileUploadError ? (
+                    <span className='text-red-700'>
+                      Error Image upload (image must be less than 2 mb)
+                    </span>
+                  ) : filePerc > 0 && filePerc < 100 ? (
+                    <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
+                  ) : filePerc === 100 ? (
+                    <span className='text-green-700'>Image successfully uploaded!</span>
+                  ) : (
+                    ''
+                  )}
+                </p>
               </div>
               <div className="flex justify-between items-center mt-6">
                 <div className="w-full h-1 bg-gray-300 rounded-full overflow-hidden">
@@ -215,42 +281,42 @@ const Profile = () => {
                 </div>
               </div>
               <form onSubmit={handleSubmit}>
-              <input
-                className="border border-grey px-4 shadow-shdInset max-lg:mb-4 mb-4 h-16 font-monteserrat text-[20px] focus:outline-none placeholder-gray-500 placeholder-opacity-50 w-[90%]"
-                defaultValue={currentUser.username}
-                placeholder="Moatez Saii"
-                type="text"
-                id="username"
-                onChange={handleChange}
-              />
-              <input
-                className="border border-grey px-4 shadow-shdInset max-lg:mb-4 mb-4 h-16 font-monteserrat text-[20px] focus:outline-none placeholder-gray-500 placeholder-opacity-50 w-[90%]"
-                placeholder="Moatezsaii@gmail.com"
-                defaultValue={currentUser.email}
-                type="email"
-                id="email"
-                onChange={handleChange}
-              />
-              <input
-                className="border border-grey px-4 shadow-shdInset max-lg:mb-4 mb-8 h-16 font-monteserrat text-[20px] focus:outline-none placeholder-gray-500 placeholder-opacity-50 w-[90%]"
-                placeholder="+216 55 456 521"
-                defaultValue={currentUser.phone}
-                type="tel"
-                id="tel"
-                onChange={handleChange}
-              />
-              
-              <div className="flex justify-between items-center w-full">
-                <button disabled={loading} className="relative w-[90%] h-14 py-1 px-auto mx-auto border border-grey text-black font-semibold bg-white">
-                  <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#FDEE6D] z-0"></span>
-                  <span className="absolute inset-0 border border-black bg-white z-10"></span>
-                  <span className="relative z-20 font-caprasimo text-xl font-normal">{loading ? 'Loading...' : 'Update'}</span>
-                </button>
-              </div>
+                <input
+                  className="border border-grey px-4 shadow-shdInset max-lg:mb-4 mb-4 h-16 font-monteserrat text-[20px] focus:outline-none placeholder-gray-500 placeholder-opacity-50 w-[90%]"
+                  defaultValue={currentUser.username}
+                  placeholder="Moatez Saii"
+                  type="text"
+                  id="username"
+                  onChange={handleChange}
+                />
+                <input
+                  className="border border-grey px-4 shadow-shdInset max-lg:mb-4 mb-4 h-16 font-monteserrat text-[20px] focus:outline-none placeholder-gray-500 placeholder-opacity-50 w-[90%]"
+                  placeholder="Moatezsaii@gmail.com"
+                  defaultValue={currentUser.email}
+                  type="email"
+                  id="email"
+                  onChange={handleChange}
+                />
+                <input
+                  className="border border-grey px-4 shadow-shdInset max-lg:mb-4 mb-8 h-16 font-monteserrat text-[20px] focus:outline-none placeholder-gray-500 placeholder-opacity-50 w-[90%]"
+                  placeholder="+216 55 456 521"
+                  defaultValue={currentUser.phone}
+                  type="tel"
+                  id="tel"
+                  onChange={handleChange}
+                />
+
+                <div className="flex justify-between items-center w-full">
+                  <button disabled={loading} className="relative w-[90%] h-14 py-1 px-auto mx-auto border border-grey text-black font-semibold bg-white">
+                    <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#FDEE6D] z-0"></span>
+                    <span className="absolute inset-0 border border-black bg-white z-10"></span>
+                    <span className="relative z-20 font-caprasimo text-xl font-normal">{loading ? 'Loading...' : 'Update'}</span>
+                  </button>
+                </div>
               </form>
             </div>
           </div>
-         
+
 
 
           <div className="flex flex-col items-center w-1/2 h-full pt-9">
