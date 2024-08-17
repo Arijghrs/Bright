@@ -22,14 +22,14 @@ const menuItems = [
 ];
 
 const Sidebar = () => (
-  <aside className="bg-white w-96 h-screen p-6 shadow-md">
-    <div className="logo flex justify-center mb-6">
+  <aside className="bg-white w-64 h-screen p-6 ">
+    <div className="logo flex justify-center mb-8">
       <img src={logo1} alt="logo" width={125} height={38} className="object-contain" />
     </div>
     <nav>
       <ul>
         {menuItems.map(({ href, title, icon }) => (
-          <li key={title} className="m-2">
+          <li key={title} className="m-2 mb-10">
             <NavLink
               to={href} 
               className={({ isActive }) =>
@@ -45,11 +45,12 @@ const Sidebar = () => (
         ))}
       </ul>
     </nav>
-    <button className="relative w-29 h-9 py-1 px-4 border border-grey text-black  bg-white">
-            <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#CF1F30] z-0"></span>
-            <span className="absolute inset-0 border border-black bg-white z-10 flex items-center justify-center"></span>
-            <span className="relative z-20 font-caprasimo  text-[24px]">Log out</span>
-          </button>
+    <button className="relative w-52 h-16 mt-20 py-1 px-4 border border-grey text-black bg-white transition-transform transform hover:-translate-y-1 hover:translate-x-1">
+      <span className="absolute inset-0 border border-black transform -translate-x-1 translate-y-1 bg-[#CF1F30] z-0"></span>
+      <span className="absolute inset-0 border border-black bg-white z-10 flex items-center justify-center"></span>
+      <span className="relative z-20 font-caprasimo text-[24px]">Log out</span>
+    </button>
+
   </aside>
 );
 

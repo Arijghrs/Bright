@@ -1,5 +1,4 @@
 
-
 const Footer = () => {
   return (
     <section className="bg-[#F5F4FF]  lg:h-[400px] max-lg:h-[300px]  lg:px-16 lg:p-[70px] ">

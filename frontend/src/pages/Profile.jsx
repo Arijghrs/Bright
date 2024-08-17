@@ -142,13 +142,13 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
+    <div className='w-full'>
       <div className="font-caprasimo text-4xl leading-[55.05px] font-normal ml-12 mt-10">
         Welcome back Moatez!
       </div>
 
       {profiles.map((profile) => (
-        <div key={profile.id} className="flex justify-between items-center w-full h-[800px]">
+        <div key={profile.id} className="flex justify-between items-center w-[100%] h-[800px]">
           <div className="flex justify-center items-center w-1/2 h-full">
             <div className="w-[390px] h-[650px] border flex flex-col justify-center items-center">
               <div className="relative w-52 h-52 mb-12 mt-4 items-center mx-auto">

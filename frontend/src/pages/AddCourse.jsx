@@ -26,11 +26,7 @@ export default function AddCourse() {
               Add info about the new course
             </div>
             <div className="mt-4 ml-8">
-              <input
-                className="border broder-1 p-3 border-gray-400 shadow-shdInsetPurp h-11 w-[320px] mt-4  text-sm font-monteserrat outline-none"
-                type="text"
-                placeholder="Course title"
-              />
+               
 
               <select
                 className="border text-gray-500 broder-1 border-gray-400 shadow-shdInsetPurp  mt-4  px-2  text-sm font-monteserrat leading-tight w-[320px] h-11  text-opacity-50 font-montserrat font-normal outline-none "
