@@ -51,7 +51,7 @@ const Sidebar = () => {
     <nav>
       <ul>
         {menuItems.map(({ href, title, icon }) => (
-          <li key={title} className="m-2">
+          <li key={title} className="m-2 mb-10">
             <NavLink
                 to={href}
                 className={({ isActive }) =>

@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        blueBadge:'#A0C6E8',
         darkblue: '#2C3439', 
         yellow: '#FDEE6D',
         blackish: "#171717",
@@ -22,8 +23,10 @@ module.exports = {
       fontFamily: {
         caprasimo: ['Caprasimo', 'sans-serif'],
         montserrat: "Montserrat",
+        bright: ['Bright', 'montserrat'],
         robotoserif: ['Roboto Serif', 'serif'],
-        inter: ['Inter', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'], 
+        oleo: ['oleo', 'cursive'],
        
     },
     boxShadow: {
