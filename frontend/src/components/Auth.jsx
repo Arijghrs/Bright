@@ -266,8 +266,8 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
           </form>
           <p className="text-sm font-caprasimo mt-4 ml-2">Or use</p>
           <div className="flex space-x-4 mb-4">
-            <OAuth/>
-            <FAuth/>
+            <OAuth navigate={navigate}/>
+            <FAuth navigate={navigate}/>
           </div>
           {error && <p className='text-red-500 mt-5'>{error}</p>}
           <button onClick={onClose} className="absolute top-0 right-0 mt-2 mr-2 text-black text-2xl font-bold">X</button>

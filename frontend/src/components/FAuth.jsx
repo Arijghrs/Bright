@@ -1,9 +1,11 @@
 import { FacebookAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import { app } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signInSuccess } from '../redux/user/userSlice';
 
 export default function FAuth() {
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleFacebookClick = async () => {
       try {
@@ -20,8 +22,8 @@ export default function FAuth() {
               body: JSON.stringify({ name: result.user.displayName, email: result.user.email }),
           })
           const data = await res.json();
-          //dispatch(signInSuccess(data));
-          navigate('/');
+          dispatch(signInSuccess(data));
+          navigate('/dashboard');
 
       } catch (error) {
           console.log('could not sign in with facebook ', error);
