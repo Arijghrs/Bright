@@ -56,7 +56,7 @@ const Dashboard = () => {
                     <tr key={index} className="border-b-2 border-gray-300 text-[#273240]">
                       <td className="py-2">{course.name}</td>
                       <td className="py-2">{course.category}</td>
-                      <td className="py-2"><Rating rating={course.rating} /></td>
+                      <td className="py-2"><Rating rate={course.rate} /></td>
                       <td className="py-2">{course.students}</td>
                     </tr>
                   ))}

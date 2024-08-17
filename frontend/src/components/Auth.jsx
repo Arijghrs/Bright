@@ -45,7 +45,7 @@ const Auth = ({ showModal, onClose, openSignIn }) => {
       }
       setLoading(false);
       setError(null);
-      /*navigate('/sign-in');*/
+      navigate('/');
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -138,7 +138,7 @@ console.log(formData);
                 type="tel"
                 placeholder="Phone number (+216)"
                 className="border p-2 border-gray-400 shadow-shdInsetPurp h-10 w-48 ml-8 text-xs font-montserrat"
-                id='tel'
+                id='phone'
                 onChange={handleChange}
               />
             </div>
@@ -158,7 +158,7 @@ console.log(formData);
             </button>
 
           </form>
-          {error && <p className='text-red  mt-5'>{error}</p>}
+         {/* {error && <p className='text-red  mt-5'>{error}</p>}*/} 
           <button onClick={onClose} className="absolute top-0 right-0 mt-2 mr-2 text-black  ">X</button>
         </div>
       </div>
@@ -200,7 +200,7 @@ const SignIn = ({ showModal, onClose, openSignUp }) => {
         return;
       }
       dispatch(signInSuccess(data));
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
