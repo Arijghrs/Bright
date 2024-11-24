@@ -45,6 +45,14 @@ function App() {
           </MainLayout>
         }
       />
+         <Route
+        path="/coursesA"
+        element={
+          <MainLayout>
+            <CoursesA/>
+          </MainLayout>
+        }
+      />
       
 
 
@@ -149,14 +157,7 @@ function App() {
           </MainLayout>
         }
       />
-      <Route
-        path="/coursesA"
-        element={
-          <MainLayout>
-            <CoursesA/>
-          </MainLayout>
-        }
-      />
+   
        <Route
         path="/QuizStart"
         element={

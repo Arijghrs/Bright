@@ -18,9 +18,23 @@ export const addCourse = async (req, res, next) => {
   
   export const getCourses = async (req, res, next) => {
     try {
-      const course = await Course.find(); 
-      res.status(200).json(course);
+      const { search } = req.query; 
+      let query = {};
+  
+      if (search) {
+        
+        query = {
+          $or: [
+            { title: { $regex: search, $options: 'i' } }, 
+            { Mentor: { $regex: search, $options: 'i' } } 
+          ]
+        };
+      }
+  
+      const courses = await Course.find(query); 
+      res.status(200).json(courses);
     } catch (error) {
       next(error);
     }
   };
+  

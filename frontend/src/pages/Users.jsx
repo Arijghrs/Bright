@@ -10,24 +10,29 @@ const Users = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [dates, setDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch("/api/user/users")
-      .then((response) => response.json())
-      .then((data) => {
-       
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`/api/user/users?search=${searchTerm}`);
+        const data = await response.json();
+
         const userRoleUsers = data.filter(user => user.role === 'user');
         setUsers(userRoleUsers);
 
-        
-        const creationDates = userRoleUsers.map(user => new Date(user.createdAt)); 
+        const creationDates = userRoleUsers.map(user => new Date(user.createdAt));
         const formattedDates = creationDates
           .map(date => date.toLocaleDateString('en-US', { year: '2-digit', month: '2-digit' }))
-          .filter((value, index, self) => self.indexOf(value) === index); 
+          .filter((value, index, self) => self.indexOf(value) === index);
         setDates(formattedDates);
-      })
-      .catch((error) => console.error("Error fetching users:", error));
-  }, []);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, [searchTerm]);  
 
   useEffect(() => {
     if (selectedDate) {
@@ -44,6 +49,11 @@ const Users = () => {
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
   };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
 
   return (
     <div className="flex bg-neutral-50 ml-5 w-[1100px]">
@@ -71,10 +81,12 @@ const Users = () => {
               </div>
             </div>
             <div className="flex  relative mt-10">             
-               <input
+            <input
                 placeholder="Search by name, email or phone number..."
                 type="text"
                 className="w-full lg:w-[411px] h-9 pl-7 bg-neutral-100 rounded-sm shadow-sm outline-none"
+                value={searchTerm}  
+                onChange={handleSearchChange} 
               />
               <div className="absolute w-5 h-5 mt-2 ml-1">
                 <img src={search} alt="search" />

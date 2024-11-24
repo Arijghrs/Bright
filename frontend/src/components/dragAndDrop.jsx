@@ -31,10 +31,7 @@ const DragAndDrop = () => {
         className={`file-input ${
           dragging ? "dragging" : ""
         } bg-gray-100 w-[320px] h-60 flex items-center justify-center relative`}
-        onDragEnter={handleDragEnter}
-        onDragOver={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
+        
       >
         <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center">
           <img className="mb-2" src={imageInput} alt="Image Input" />

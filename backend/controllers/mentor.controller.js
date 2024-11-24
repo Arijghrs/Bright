@@ -3,13 +3,34 @@ import bcryptjs from 'bcryptjs';
 
 
 export const getMentors = async (req, res, next) => {
-    try {
-      const mentors = await User.find({ role: 'mentor' }); 
-      res.status(200).json(mentors);
-    } catch (error) {
-      next(error);
+  try {
+    const { search } = req.query;
+
+    let query = { role: 'mentor' };
+
+    if (search) {
+      const searchRegex = new RegExp(`^${search}`, 'i');
+      query = {
+        ...query,
+        $or: [
+          { name: { $regex: searchRegex } },
+          { email: { $regex: searchRegex } },
+          { phone: { $regex: searchRegex } }
+        ]
+      };
     }
-  };
+
+    const mentors = await User.find(query);
+    res.status(200).json(mentors);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+
+
 
 
   /*export const createMentor = async () => {
