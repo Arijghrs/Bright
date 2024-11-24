@@ -8,7 +8,10 @@ import { useNavigate } from "react-router-dom";
 const Coursesdash = () => {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // State for search term
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [dates, setDates] = useState([]);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -19,16 +22,38 @@ const Coursesdash = () => {
         }
         const data = await response.json();
         setCourses(data);
+
+        
+        const uniqueDates = [...new Set(data.map(course => {
+          return new Date(course.createdAt).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit' });
+        }))];
+        setDates(uniqueDates);
+
+        
+        if (selectedDate) {
+          const filtered = data.filter(course => {
+            const courseDate = new Date(course.createdAt).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit' });
+            return courseDate === selectedDate;
+          });
+          setFilteredCourses(filtered);
+        } else {
+          setFilteredCourses(data);
+        }
+
       } catch (error) {
         console.error("Failed to fetch courses:", error);
       }
     };
 
     fetchCourses();
-  }, [searchTerm]); // Fetch courses whenever searchTerm changes
+  }, [searchTerm, selectedDate]);
 
   const handleAddCourse = () => {
     navigate('/addcourse');
+  };
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
   };
 
   const handleSearchChange = (event) => {
@@ -55,11 +80,13 @@ const Coursesdash = () => {
             <div className="flex gap-1">
               <div className="flex items-center mt-10 w-30 text-gray-500 bg-white border rounded-sm shadow-sm outline-none">
                 <img src={clock} className="w-4 h-4 ml-2" alt="clock" />
-                <select>
-                  <option value="" disabled defaultValue>Date range</option>
-                  <option>01-02</option>
-                  <option>03-04</option>
-                  <option>05-06</option>
+                <select onChange={handleDateChange} value={selectedDate}>
+                  <option value="" disabled>
+                    Date range
+                  </option>
+                  {dates.map((date, index) => (
+                    <option key={index} value={date}>{date}</option>
+                  ))}
                 </select>
               </div>
               <div className="flex items-center mt-10 w-30 text-gray-500 bg-white border rounded-sm shadow-sm outline-none">
@@ -101,7 +128,7 @@ const Coursesdash = () => {
                 </tr>
               </thead>
               <tbody>
-                {courses.map((course) => (
+                {filteredCourses.map((course) => (
                   <tr
                     key={course._id}
                     className="grid grid-cols-12 gap-4 justify-items-start font-montserrat font-normal border-t-2 h-12 py-2 bg-neutral-50 text-gray-600"
@@ -130,7 +157,7 @@ const Coursesdash = () => {
           </div>
           <div className="w-[900px] h-[52px] mt-10 ml-4 bg-neutral-50 flex justify-between items-center">
             <div className="w-[161px] ml-4 flex">
-              <h1 className="pl-1 text-gray-600 font-montserrat font-bold">{courses.length}</h1>
+              <h1 className="pl-1 text-gray-600 font-montserrat font-bold">{filteredCourses.length}</h1>
               <h1 className="pl-2 text-gray-600 font-montserrat font-normal">Results</h1>
             </div>
             <div className="">

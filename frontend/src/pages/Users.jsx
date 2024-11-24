@@ -32,7 +32,7 @@ const Users = () => {
     };
 
     fetchUsers();
-  }, [searchTerm]);  // Dependency on searchTerm to refetch when it changes
+  }, [searchTerm]);  
 
   useEffect(() => {
     if (selectedDate) {
