@@ -3,7 +3,7 @@ import path from "../assets/Path 2.png";
 
 const SquareChart = ({ total, month, today, sTotal, sMonth, sToday }) => {
   return (
-    <div className="w-[180px] h-[158px] bg-white mt-12 ml-3 border-2 border-gray-100 text-gray-600 relative">
+    <div className="w-[180px] h-[158px] bg-white mt-12 mx-7 ml-3 border-2 border-gray-100 text-gray-600 relative">
       <div className="mb-2 mt-3 ml-2 text-left">
         <h2 className="font-medium text-lg">{total}</h2>
         <h1 className="font-bold text-xl">{sTotal} TND</h1>

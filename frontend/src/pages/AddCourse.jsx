@@ -182,6 +182,7 @@ export default function AddCourse() {
             )}
           </div>
         </div>
+
       </div>
 
 
@@ -221,6 +222,33 @@ export default function AddCourse() {
 
                   <h1 className="text-sm">TND</h1>
                 </button>
+
+        <div className=" mt-4 flex gap-24 w-[850px] h-[580px] bg-white">
+          <div className="pt-6 ">
+            <div className="text-black text-2xl font-montserrat font-normal ml-4">
+              Add info about the new course
+            </div>
+            <div className="mt-4 ml-8">
+               
+
+              <select
+                className="border text-gray-500 broder-1 border-gray-400 shadow-shdInsetPurp  mt-4  px-2  text-sm font-monteserrat leading-tight w-[320px] h-11  text-opacity-50 font-montserrat font-normal outline-none "
+              >
+                <option value="">Mentor</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+              </select>
+
+              <select
+                className="border text-gray-500 broder-1 border-gray-400 shadow-shdInsetPurp  mt-4  px-2  text-sm font-monteserrat leading-tight w-[320px] h-11  text-opacity-50 font-montserrat font-normal outline-none "
+              >
+                <option value="">Category</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+              </select>
+
 
                 <input
                   className="border broder-1 p-3 border-gray-400 shadow-shdInsetPurp h-11 w-[320px] mt-4   text-sm font-monteserrat outline-none"

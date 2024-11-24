@@ -21,6 +21,11 @@ import Quiz from './pages/Quiz';
 import FillBlanksQuiz from './pages/FillBlanksQuiz';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Profile from './pages/Profile.jsx';
+import CourseDiscussion from './pages/CourseDiscussion';
+import Checkout from './pages/Checkout';
+import Payment from './pages/Payment';
+import MentorCourse from './pages/MentorCourse';
+import HomeScreen from './pages/HomeScreen';
 
 function App() {
   return (
@@ -51,7 +56,52 @@ function App() {
       
 
 
+
       <Route element={<PrivateRoute/>}>
+
+
+      <Route
+        path="/CourseDiscussion"
+        element={
+          <MainLayout>
+            <CourseDiscussion/>
+          </MainLayout>
+        }
+      />
+      
+      
+      <Route
+        path="/MentorCourse"
+        element={
+          <MainLayout>
+            <MentorCourse/>
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Checkout"
+        element={
+          <MainLayout>
+            <Checkout/>
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/HomeScreen"
+        element={
+          <MainLayout>
+            <HomeScreen/>
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Payment"
+        element={
+          <MainLayout>
+            <Payment/>
+          </MainLayout>
+        }
+      />
 
        <Route path="/profile" element={
           <MainLayout>
